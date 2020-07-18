@@ -2,6 +2,9 @@ package com.mahmoud.decadeofmovies.movie_details
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mahmoud.decadeofmovies.R
 import com.mahmoud.decadeofmovies.ToolbarActivity
@@ -50,7 +53,13 @@ class MovieDetailsActivity : ToolbarActivity() {
                 recyclerView_movie_genres.adapter = TextAdapter(it)
             }
 
-
+            // Show Photos
+            movieItem.title?.let {
+                val viewModel = ViewModelProvider(this).get(MovieDetailsViewModel::class.java)
+                viewModel.getMoviePhotosUrls(movieTitle = it).observe(this, Observer {
+                    Log.d("TAG", "Photos Urls are available")
+                })
+            }
         }
     }
 }
