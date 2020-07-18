@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mahmoud.decadeofmovies.R
 import com.mahmoud.decadeofmovies.data.model.Movie
+import com.mahmoud.decadeofmovies.movie_details.MovieDetailsActivity
 
 class MoviesListAdapter : RecyclerView.Adapter<MovieViewHolder>() {
 
@@ -18,7 +19,12 @@ class MoviesListAdapter : RecyclerView.Adapter<MovieViewHolder>() {
     override fun getItemCount(): Int = movies.size
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bindMovie(movies.get(position))
+        val movie = movies[position]
+        holder.bindMovie(movie)
+        holder.itemView.setOnClickListener {
+            val intent = MovieDetailsActivity.getActivityIntent(holder.itemView.context, movie)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     fun addMovies(movies: List<Movie>) {
