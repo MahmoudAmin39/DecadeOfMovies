@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".movies_list.MoviesListActivity">
 
-    <Button
-        android:id="@+id/button"
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Click me"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
