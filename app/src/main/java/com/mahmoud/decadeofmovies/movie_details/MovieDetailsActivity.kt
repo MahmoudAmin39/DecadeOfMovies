@@ -2,6 +2,7 @@ package com.mahmoud.decadeofmovies.movie_details
 
 import android.content.Context
 import android.content.Intent
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mahmoud.decadeofmovies.R
 import com.mahmoud.decadeofmovies.ToolbarActivity
 import com.mahmoud.decadeofmovies.data.model.Movie
@@ -34,6 +35,22 @@ class MovieDetailsActivity : ToolbarActivity() {
             val movieInfoView = layoutInflater.inflate(R.layout.item_movie, view_movie_info, true)
             val movieInfoViewHolder = MovieViewHolder(movieInfoView)
             movieInfoViewHolder.bindMovie(it)
+
+            // Show cast
+            movieItem.cast?.let {
+                recyclerView_movie_cast.layoutManager = LinearLayoutManager(this)
+                recyclerView_movie_cast.isNestedScrollingEnabled = false
+                recyclerView_movie_cast.adapter = TextAdapter(it)
+            }
+
+            // Show Genres
+            movieItem.genres?.let {
+                recyclerView_movie_genres.layoutManager = LinearLayoutManager(this)
+                recyclerView_movie_genres.isNestedScrollingEnabled = false
+                recyclerView_movie_genres.adapter = TextAdapter(it)
+            }
+
+
         }
     }
 }

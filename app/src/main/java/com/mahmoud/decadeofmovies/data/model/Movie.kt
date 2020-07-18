@@ -8,7 +8,7 @@ import org.json.JSONObject
 @Parcelize
 data class Movie(
     val id: Int, val title: String?, val year: Int?,
-    val rating: Int?, val cast: MutableList<String>?, val genres: MutableList<String>?) : Parcelable {
+    val rating: Int?, val cast: List<String>?, val genres: List<String>?) : Parcelable {
 
     companion object {
 
