@@ -10,6 +10,8 @@ abstract class ToolbarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_toolbar)
 
+        setSupportActionBar(toolbar)
+
         // Setup the toolbar navigation icon
         if (shouldShowUpButton()) {
             toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
