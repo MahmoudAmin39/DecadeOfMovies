@@ -36,23 +36,30 @@ object MoviesRepository {
     }
 
     // This method filters the movie title, cast and genres
-    fun filterMovies(searchTerm: String) : List<Movie> {
+    fun filterMovies(searchTerm: String): List<Movie> {
         val filteredList = mutableListOf<Movie>()
+        val moviesMapOfYear = mutableMapOf<Int, MutableList<Movie>>()
         movies?.filter { movie ->
+            // Check if the year list already has five elements, then don't bother to
+            // filter the movie (Early return false)
+            if (moviesMapOfYear[movie.year]?.size != null && moviesMapOfYear[movie.year]?.size!! >= 5) {
+                return@filter false
+            }
             val movieTermsList = mutableListOf<String>()
             movie.title?.let { title -> movieTermsList.add(title) }
             movie.cast?.let { cast -> cast.forEach { castName -> movieTermsList.add(castName) } }
             movie.genres?.let { genres -> genres.forEach { genre -> movieTermsList.add(genre) } }
-            movieTermsList.forEach { term -> if (term.contains(searchTerm, true)) return@filter true }
+            movieTermsList.forEach { term ->
+                    if (term.contains(searchTerm, true)) {
+                        var moviesListForYear = moviesMapOfYear[movie.year]
+                        if (moviesListForYear == null) { moviesListForYear = mutableListOf() }
+                        moviesListForYear.add(movie)
+                        moviesMapOfYear[movie.year!!] = moviesListForYear
+                        return@filter true
+                    }
+                }
             return@filter false
-        }?.forEach { movie ->
-            if (filteredList.filter {
-                    if (movie.year != null && it.year != null) { return@filter movie.year == it.year }
-                    return@filter false
-                }.size < 5) {
-                filteredList.add(movie)
-            }
-        }
+        }?.forEach { movie -> filteredList.add(movie) }
 
         return filteredList
     }
