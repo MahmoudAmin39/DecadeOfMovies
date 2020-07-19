@@ -8,7 +8,8 @@ import org.json.JSONObject
 @Parcelize
 data class Movie(
     val id: Int, val title: String?, val year: Int?,
-    val rating: Int?, val cast: List<String>?, val genres: List<String>?) : Parcelable {
+    val rating: Int?, val cast: List<String>?, val genres: List<String>?
+) : Parcelable, Comparable<Movie> {
 
     companion object {
 
@@ -53,5 +54,21 @@ data class Movie(
 
             return Movie(id, title, year, rating, cast, genres)
         }
+    }
+
+    override fun compareTo(other: Movie): Int {
+        // Compare by year (ASC)
+        if (this.year != null && other.year != null) {
+            val yearCompareResult = this.year.compareTo(other.year)
+            if (yearCompareResult != 0) {
+                return yearCompareResult
+            } else {
+                // They are both from the same year, Compare the rating (DESC)
+                if (this.rating != null && other.rating != null) {
+                    return other.rating.compareTo(this.rating)
+                }
+            }
+        }
+        return 0
     }
 }

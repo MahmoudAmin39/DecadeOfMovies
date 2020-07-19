@@ -29,6 +29,7 @@ object MoviesRepository {
                     moviesArray.add(movie)
                 }
             }
+            moviesArray.sort()
             this.movies = moviesArray
         }
         return movies as List<Movie>
