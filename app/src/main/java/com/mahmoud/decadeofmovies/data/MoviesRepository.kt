@@ -35,6 +35,28 @@ object MoviesRepository {
         return movies as List<Movie>
     }
 
+    // This method filters the movie title, cast and genres
+    fun filterMovies(searchTerm: String) : List<Movie> {
+        val filteredList = mutableListOf<Movie>()
+        movies?.filter { movie ->
+            val movieTermsList = mutableListOf<String>()
+            movie.title?.let { title -> movieTermsList.add(title) }
+            movie.cast?.let { cast -> cast.forEach { castName -> movieTermsList.add(castName) } }
+            movie.genres?.let { genres -> genres.forEach { genre -> movieTermsList.add(genre) } }
+            movieTermsList.forEach { term -> if (term.contains(searchTerm, true)) return@filter true }
+            return@filter false
+        }?.forEach { movie ->
+            if (filteredList.filter {
+                    if (movie.year != null && it.year != null) { return@filter movie.year == it.year }
+                    return@filter false
+                }.size < 5) {
+                filteredList.add(movie)
+            }
+        }
+
+        return filteredList
+    }
+
     fun getMoviePhotos(movieTitle: String): LiveData<Result<List<Photo>>> {
         val responseLiveData = MutableLiveData<Result<List<Photo>>>()
         PhotosSearchApiRetrofitBuilder.photosSearchService.getPhotos(movieTitle)
