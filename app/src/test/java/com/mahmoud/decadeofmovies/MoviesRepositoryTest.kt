@@ -88,4 +88,32 @@ class MoviesRepositoryTest {
         assertEquals(5, filteredMovies[4].id)
         assertEquals(10, filteredMovies[5].id)
     }
+
+    @Test
+    fun givenUnSortedMoviesList_WhenSortMoviesCalled_thenListIsSorted() {
+        val moviesList = mutableListOf<Movie>()
+        moviesList.add(Movie(1, "", 2011, 2, emptyList(), emptyList()))
+        moviesList.add(Movie(2, "", 2015, 1, emptyList(), emptyList()))
+        moviesList.add(Movie(3, "", 2013, 3, emptyList(), emptyList()))
+        moviesList.add(Movie(4, "", 2010, 2, emptyList(), emptyList()))
+        moviesList.add(Movie(5, "", 2009, 1, emptyList(), emptyList()))
+        moviesList.add(Movie(6, "", 2015, 3, emptyList(), emptyList()))
+        moviesList.add(Movie(7, "", 2010, 3, emptyList(), emptyList()))
+        moviesList.add(Movie(8, "", 2011, 3, emptyList(), emptyList()))
+        moviesList.add(Movie(9, "", 2009, 3, emptyList(), emptyList()))
+        moviesList.add(Movie(10, "", 2013, 5, emptyList(), emptyList()))
+
+        MoviesRepository.sortList(moviesList)
+
+        assertEquals(9, moviesList[0].id)
+        assertEquals(5, moviesList[1].id)
+        assertEquals(7, moviesList[2].id)
+        assertEquals(4, moviesList[3].id)
+        assertEquals(8, moviesList[4].id)
+        assertEquals(1, moviesList[5].id)
+        assertEquals(10, moviesList[6].id)
+        assertEquals(3, moviesList[7].id)
+        assertEquals(6, moviesList[8].id)
+        assertEquals(2, moviesList[9].id)
+    }
 }
