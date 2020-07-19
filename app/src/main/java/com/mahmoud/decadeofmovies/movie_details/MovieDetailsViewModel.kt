@@ -9,7 +9,7 @@ import com.mahmoud.decadeofmovies.data.model.Photo
 
 class MovieDetailsViewModel : ViewModel() {
 
-    fun getMoviePhotosUrls(movieTitle: String): LiveData<List<String>> {
+    fun getMoviePhotosUrls(movieTitle: String): LiveData<Result<List<String>>> {
         return Transformations.map(MoviesRepository.getMoviePhotos(movieTitle), Function {
             val photosUrls = mutableListOf<String>()
             if (it.isSuccess) {
@@ -19,12 +19,17 @@ class MovieDetailsViewModel : ViewModel() {
                         val photoUrl = buildPhotoUrlFrom(photo)
                         photosUrls.add(photoUrl)
                     }
+                    return@Function Result.success(photosUrls)
+                }
+            } else {
+                val exception = it.exceptionOrNull()
+                exception?.let {
+                    return@Function Result.failure(it)
                 }
             }
-            return@Function photosUrls
         })
     }
 
-    fun buildPhotoUrlFrom(photo: Photo) =
-        "http://farm​${photo.farm}​.staticflickr.com/​${photo.server}​/​${photo.id}​_​${photo.secret}_z​.jpg"
+    private fun buildPhotoUrlFrom(photo: Photo) =
+        "http://farm​${photo.farm}​.staticflickr.com/​${photo.server}​/​${photo.id}​_​${photo.secret}_o.jpg"
 }
