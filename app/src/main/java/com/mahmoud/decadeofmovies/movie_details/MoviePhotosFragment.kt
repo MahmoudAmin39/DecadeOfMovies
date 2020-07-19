@@ -35,7 +35,7 @@ class MoviePhotosFragment : Fragment() {
 
     companion object {
 
-        private const val ITEM_PHOTO_MARGIN = 4
+        private const val ITEM_PHOTO_MARGIN = 8
         private const val SPAN_COUNT = 2
 
         @JvmStatic
