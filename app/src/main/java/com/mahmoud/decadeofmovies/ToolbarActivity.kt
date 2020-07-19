@@ -1,9 +1,6 @@
 package com.mahmoud.decadeofmovies
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_toolbar.*
@@ -12,6 +9,8 @@ abstract class ToolbarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_toolbar)
+
+        setSupportActionBar(toolbar)
 
         // Setup the toolbar navigation icon
         if (shouldShowUpButton()) {
