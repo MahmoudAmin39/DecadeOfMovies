@@ -29,10 +29,15 @@ object MoviesRepository {
                     moviesArray.add(movie)
                 }
             }
-            moviesArray.sort()
-            this.movies = moviesArray
+            val sortedList = sortList(moviesArray)
+            this.movies = sortedList
         }
         return movies as List<Movie>
+    }
+
+    fun sortList(moviesArray: MutableList<Movie>): List<Movie>? {
+        moviesArray.sort()
+        return moviesArray
     }
 
     // This method filters the movie title, cast and genres
