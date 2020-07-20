@@ -14,6 +14,6 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this, MoviesListActivity::class.java)
             startActivity(intent)
             finishAffinity()
-        }, 1000)
+        }, 300)
     }
 }
