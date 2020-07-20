@@ -39,7 +39,7 @@ class PhotosListAdapter(itemWidthAndHeight: Int, photosUrls: List<String>) :
     inner class PhotoViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
         fun bindPhoto(photoUrl: String) {
-            Glide.with(itemView.context).load(photoUrl).placeholder(R.mipmap.ic_launcher_round)
+            Glide.with(itemView.context).load(photoUrl).placeholder(R.drawable.ic_launcher)
                 .into(itemView.imageView_movie_photo)
         }
     }
